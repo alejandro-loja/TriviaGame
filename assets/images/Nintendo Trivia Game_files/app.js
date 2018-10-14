@@ -71,6 +71,7 @@ $(document).ready(function () {
         for (var z = 0; z < howManyQuestions; z++) {
             var everyAnswer = trivia[number].choices[z];
             var correctORincorrect = trivia[number].correctAns;
+            console.log(correctORincorrect);
             var divForQuestions = $('<div>');
             divForQuestions.attr('id', z);
             divForQuestions.addClass("answer-choice");
@@ -80,6 +81,7 @@ $(document).ready(function () {
             if (z === correctORincorrect) {
                 divForQuestions.attr('value', 'right');
                 printAnswer = trivia[number].choices[correctORincorrect];
+                console.log(printAnswer);
             }
             else {
                 divForQuestions.attr('value', 'wrong');
@@ -98,7 +100,8 @@ $(document).ready(function () {
     function toClick() {
         $('.answer-choice').on('click', function () {
             var isCorrect = $(this).attr('value');
-
+            var isCorrect = $(this).attr('value');
+            console.log(theAnswer);
             if (isCorrect === 'right') {
                 console.log(isCorrect);
                 win++;
@@ -110,7 +113,7 @@ $(document).ready(function () {
                 console.log(isCorrect);
                 loss++;
                 proceed();
-                $('.questions').text('Answer: ' + printAnswer);
+                $('.questions').text(theAnswer);
                 $('.answer-container').text('WRONG');
             }
 
@@ -128,10 +131,10 @@ $(document).ready(function () {
         startquestions++;
         console.log('i am proceeding');
         if (startquestions === howManyQuestions) {
-            setTimeout(gameOver, 2000);
+            setTimeout(gameOver, 3000);
         }
         else {
-            setTimeout(holdOn, 2000);
+            setTimeout(holdOn, 3000);
         }
 
     };
@@ -213,10 +216,9 @@ $(document).ready(function () {
         toClick();
     };
 
-    $('#begin').on('click', function(){
+    $('#begin').on('click', function () {
         startgame();
     });
-
 
 
 
