@@ -4,81 +4,130 @@ $(document).ready(function () {
     var unanswered = 10;
     var correct = 0;
     var incorrect = 0;
-    var time = 10;
+    var time = 300;
+
 
     var converted = timeConverter(time);
     $('.count-down').html(converted);
 
 
-    var answerArray = ['a', 'b'];
-
-    var question1 = {
+    var trivia = [{
         question: "What Video Game system released after the Nintendo 64?",
-        choices: ["Virtual Boy","Nintendo GameSphere","Nintendo GameCube","Nintendo Wii"],
-        answer: "Nintendo GameCube"
+        choices: [
+            "Virtual Boy",
+            "Nintendo GameSphere",
+            "Nintendo GameCube",
+            "Nintendo Wii"
+        ],
+        correct: 2,
+        answer: function () {
+            return this.choices[correct];
+        }
+    },
+    {
+        question: "What color combination do Mario and Luigi currently wear?",
+        choices: {
+            a: "Mario has red overalls and a blue shirt. Luigi has green overalls and a red shirt.",
+            b: "Mario has blue overalls and a red shirt. Luigi has blue overalls and a green shirt.",
+            c: "Mario has red overalls and a blue shirt. Luigi has green overalls and a blue shirt.",
+            d: "Mario has blue overalls and a red shirt. Luigi has green overalls and a blue shirt."
+        },
+        correct: "b",
+        answer: function () {
+            return this.choices.b;
+        }
+    },
+    {
+        question: "Before making Video Games what did Nintendo originally produce?",
+        choices: {
+            a: "Playing Cards",
+            b: "Toys",
+            c: "Computers",
+            d: "Transistors"
+        },
+        correct: "a",
+        answer: function () {
+            return this.choices.a;
+        }
+    },
+    {
+        question: "Which Video Game Franchise is NOT part of Nintendo?",
+        choices: [
+            "Mario",
+            "Donkey Kong",
+            "Mr. Game & Watch Series",
+            "Castlevania"
+        ],
+        correct: 3,
+        answer: function () {
+            return this.choices[correct];
+        }
     }
-    console.log(question1.answer);
+    ];
 
-    // var questionsObject = {
-    //     question: [
-    //     'What Video Game system released after the Nintendo 64?',
-    //     'What color combination do Mario and Luigi currently wear?',
-    //     'Before making Video Games what did Nintendo originally produce?',
-    //     "Which Video Game Franchise is NOT part of Nintendo?",
-    //     "Which is Nintendo’s 16-bit System?",
-    //     "What NEW feature did the Nintendo Wii have over its previous system?",
-    //     "Who is Shigeru Miyamoto?",
-    //     "What power does the Green Mushroom in Super Mario Bros. give you?",
-    //     "What is the best-selling Nintendo handheld of all time?",
-    //     "What was Mario's original name?"],
-    //     answerchoices: [],
-    //     answer: [],
-    //     printquestions
-    // }
-    // console.log(questionsObject.question[0]);
+    console.log(trivia[0].answer());
 
-    // function QuestionCreator(quest, choices, answer,) {
-    //     this.question = quest;
-    //     this.choice = last;
-    //     this.answer = age;
-    // }
+    function populateTrivia(number) {
+        var questionPrompt = trivia[number].question;
+        $('.questions').text(questionPrompt);
 
-    // var questionsKey = ['a', 'c'];
+        for (var z = 0; z < 4; z++) {
+            var everyAnswer = trivia[number].choices[z];
+            $("#" + z).text(everyAnswer);
+        }
+    };
+
+    var howManyQuestions = trivia.length;
+    console.log(howManyQuestions);
+    populateTrivia(0);
+
+
+    trivia.forEach(function (i) {
+        console.log(i.question);
+    });
+    trivia.forEach(function (i) {
+        i.answer();
+    });
 
     // $('.questions').html(questionArray[0]);
 
     $('.answer-choice').on('click', function () {
         console.log($(this).attr('id'));
-        var currentAnswer = $(this).attr('id');
-        if (questionsKey[0] === currentAnswer) {
-            console.log('You clicked ' + currentAnswer + ' so you are CORRECT');
+        var currentAnswer = $(this).attr('data-answer');
+        if (questionsKey[0] === 'correct') {
+            console.log('so you are CORRECT');
             //if so trigger function that will add to CORRECT, subtract from incorrect, and will 
         }
         else {
-            console.log('You clicked ' + currentAnswer + ' so you are WRONG');
+            console.log('so you are WRONG');
         }
 
     });
 
+    //uses count every second to subtract 1 from the time
     function setCountDown() {
         intervalId = setInterval(count, 1000);
     }
 
+    //subtracts 1 seconds
     function count() {
         time--;
         if (time === 0) {
             timeIsUp();
             alert('DONE');
-
         }
 
         var converted = timeConverter(time);
         $('.count-down').html(converted);
     };
 
+
+    //stops the time
     function timeIsUp() {
         clearInterval(intervalId);
     }
+
+    //converts seconds into minutes and seconds
     function timeConverter(t) {
 
         var minutes = Math.floor(t / 60);
