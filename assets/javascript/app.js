@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     var win = 0;
     var loss = 0;
-    var time = 20;
+    var time = 10;
     var startquestions = 0;
     var printAnswer;
 
@@ -127,44 +127,66 @@ $(document).ready(function () {
         unanswered--;
         startquestions++;
         console.log('i am proceeding');
-        if (startquestions === howManyQuestions) {
-            setTimeout(gameOver, 2000);
-        }
-        else {
-            setTimeout(holdOn, 2000);
-        }
+        if (time > 3) {
+            if (startquestions === howManyQuestions) {
+                setTimeout(gameOver, 2000);
+            }
+            else {
+                setTimeout(holdOn, 2000);
+            }
+        };
 
     };
 
     function gameOver() {
         console.log('Finished');
-        $('.main-container').empty();
+        $('.questions').empty();
+        $('.which-question').empty();
+        $('.count-down').empty();
         timeIsUp();
         var divForTally = $('<div>');
         divForTally.addClass('final-score');
         divForTally.text('Total Scores');
-        $('.main-container').append(divForTally);
-        $('.main-container').append('<br />');
+        $('.questions').append(divForTally);
+        $('.questions').append('<br />');
 
         var divForWins = $('<div>');
         divForWins.text('Correct: ' + win);
-        $('.main-container').append(divForWins);
-        $('.main-container').append('<br />');
+        $('.questions').append(divForWins);
+        $('.questions').append('<br />');
 
         var divForLosses = $('<div>');
         divForLosses.text('Incorrect: ' + loss);
-        $('.main-container').append(divForLosses);
-        $('.main-container').append('<br />');
+        $('.questions').append(divForLosses);
+        $('.questions').append('<br />');
 
         var divForUnanswered = $('<div>');
         divForUnanswered.text('Unanswered: ' + unanswered);
-        $('.main-container').append(divForUnanswered);
+        $('.questions').append(divForUnanswered);
 
+        $('.answer-container').empty();
 
+        var divForRestart = $('<div>');
+        divForRestart.attr('id', 'restart');
+        divForRestart.text('Restart?');
 
+        $('.answer-container').append(divForRestart);
+        restartGame();
 
 
     }
+    function restartGame() {
+        $('#restart').on('click', function () {
+            time = 10;
+            win = 0;
+            loss = 0;
+            unanswered = howManyQuestions;
+            startquestions = 0;
+
+            console.log('lolol');
+            startgame();
+        });
+    };
 
     //uses count every second to subtract 1 from the time
     function setCountDown() {
@@ -213,7 +235,7 @@ $(document).ready(function () {
         toClick();
     };
 
-    $('#begin').on('click', function(){
+    $('#begin').on('click', function () {
         startgame();
     });
 

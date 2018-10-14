@@ -7,7 +7,6 @@ body {
     font-family: 'Share Tech Mono', monospace;
     color: #000;
     font-size: 18px;
-    letter-spacing: 1px;
 }
 
 header{
@@ -46,7 +45,7 @@ header{
 }
 
 #begin {
-    width: 200px;
+    width: 250px;
     margin: 0 auto;
     background: #999;
     text-align: center;
@@ -96,4 +95,26 @@ header{
 .final-score {
     font-weight: bold; 
     font-size: 32px;
+}
+
+#restart {
+    width: 250px;
+    margin: 0 auto;
+    background: #999;
+    text-align: center;
+    border: 2px solid #444;
+    border-radius: 25px;
+    font-size: 28px;    
+    padding: 10px;
+}
+#restart:hover {
+    background: #bbb;
+    border: 2px solid #666;
+
+}
+
+#restart:active {
+    background: #999;
+    border: 2px solid #aaa;
+
 }
