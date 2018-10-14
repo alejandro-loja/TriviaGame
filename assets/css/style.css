@@ -70,3 +70,8 @@ header{
     opacity: 0.6;
     border: 2px dotted red;
 }
+
+.final-score {
+    font-weight: bold; 
+    font-size: 28px;
+}

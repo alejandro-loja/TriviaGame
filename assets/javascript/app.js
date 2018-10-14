@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     var win = 0;
     var loss = 0;
-    var time = 300;
+    var time = 20;
     var startquestions = 0;
 
 
@@ -58,17 +58,11 @@ $(document).ready(function () {
 
         }];
 
-    trivia.forEach(function (i) {
-        var wordsQuestion = i.question;
-        //i refers to each single question/answer set.
-        var correctChoices = i.choices[i.correctAns];
-        // console.log(wordsQuestion);
-        // console.log(correctChoices);
-    });
 
     //generates the question and set answers for one question - takes the array# of question
     function populateTrivia(number) {
         $('.answer-container').empty();
+
         var questionPrompt = trivia[number].question;
         $('.questions').text(questionPrompt);
 
@@ -101,19 +95,29 @@ $(document).ready(function () {
     function toClick() {
         $('.answer-choice').on('click', function () {
             var isCorrect = $(this).attr('value');
+            var theAnswer = $(this).text();
+            console.log(theAnswer);
             if (isCorrect === 'right') {
                 console.log(isCorrect);
                 win++;
                 proceed();
+                $('.answer-container').text('Correct!');
 
             }
             else {
                 console.log(isCorrect);
                 loss++;
                 proceed();
+                $('.questions').text(theAnswer);
+                $('.answer-container').text('WRONG');
             }
 
         });
+    };
+
+    function holdOn(){
+        populateTrivia(startquestions);
+        toClick();
     };
 
 
@@ -122,27 +126,50 @@ $(document).ready(function () {
         startquestions++;
         console.log('i am proceeding');
         if (startquestions === howManyQuestions) {
-            gameOver();
+            setTimeout(gameOver,2000);
         }
-        else {
-            populateTrivia(startquestions);
-            toClick();
+         else {
+            setTimeout(holdOn, 2000);
         }
 
     };
 
     function gameOver() {
-        console.log('hello');
-        $('.answer-container').empty();
+        console.log('Finished');
+        $('.main-container').empty();
+        timeIsUp();
+        var divForTally = $('<div>');
+        divForTally.addClass('final-score');
+        divForTally.text('Total Scores');
+        $('.main-container').append(divForTally);
+        $('.main-container').append('<br />');
+
+        var divForWins = $('<div>');
+        divForWins.text('Correct: '+ win);
+        $('.main-container').append(divForWins);
+        $('.main-container').append('<br />');
+
+        var divForLosses = $('<div>');
+        divForLosses.text('Incorrect: '+ loss);
+        $('.main-container').append(divForLosses);
+        $('.main-container').append('<br />');
+
+        var divForUnanswered = $('<div>');
+        divForUnanswered.text('Unanswered: '+ unanswered);
+        $('.main-container').append(divForUnanswered);
+
+
+
         
+
     }
 
     // Don't Touch These Functions!!!
-
+    
 
     //uses count every second to subtract 1 from the time
     function setCountDown() {
-        intervalId = setInterval(count, 1000);
+       intervalId = setInterval(count, 1000);
     }
     //subtracts 1 seconds
     function count() {
@@ -150,6 +177,7 @@ $(document).ready(function () {
         if (time === 0) {
             timeIsUp();
             console.log('TIMER STOPPED!');
+            gameOver();
         }
 
         var converted = timeConverter(time);
@@ -158,7 +186,7 @@ $(document).ready(function () {
     //stops the time
     function timeIsUp() {
         clearInterval(intervalId);
-    }
+    };
     //converts seconds into minutes and seconds
     function timeConverter(t) {
 
@@ -179,11 +207,15 @@ $(document).ready(function () {
         return minutes + ":" + seconds;
     };
 
+    function startgame(){
+        setCountDown();
+        populateTrivia(startquestions);
+        toClick();
+    };
 
-    setCountDown();
-    populateTrivia(startquestions);
-    //to click NEEDS to be done after populateTrivia or else wont work
-    toClick();
+    startgame();
+
+
 
 
 
