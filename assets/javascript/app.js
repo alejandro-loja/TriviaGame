@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     var win = 0;
     var loss = 0;
-    var time = 10;
+    var time = 120;
     var startquestions = 0;
     var printAnswer;
 
@@ -57,6 +57,72 @@ $(document).ready(function () {
             ],
             correctAns: 3,
 
+        },
+        {
+            question: "Which is Nintendo’s 16-bit System?",
+            choices: [
+                "Gameboy Advance",
+                "Nintendo Entertainment System (NES)",
+                "Super Nintendo Entertainment System (SNES)",
+                "Game Boy Color"
+            ],
+            correctAns: 2,
+
+        },
+        {
+            question: "What NEW feature did the Nintendo Wii have over its previous system?",
+            choices: [
+                "Ability to play DVDs",
+                "High Definition Graphics",
+                "Motion Controls",
+                "Wireless Controllers"
+            ],
+            correctAns: 2,
+
+        },
+        {
+            question: "Who is Shigeru Miyamoto?",
+            choices: [
+                "The founder of Nintendo",
+                "Video Game designer and producer for Nintendo",
+                "Nintendo’s President",
+                "Creator of the Super Smash Bros. franchise"
+            ],
+            correctAns: 1,
+
+        },
+        {
+            question: "What power does the Green Mushroom in Super Mario Bros. give you?",
+            choices: [
+                "Awards a 1000 points",
+                "Gives Mario the ability to fly",
+                "Makes Mario grow",
+                "Give the player another Life"
+            ],
+            correctAns: 3,
+
+        },
+        {
+            question: "What is the best-selling Nintendo handheld of all time? The system in question sold an estimated 154 million units since launch.",
+            choices: [
+                "Nintendo Game Boy",
+                "Nintendo Game Boy Advance",
+                "Nintendo DS",
+                "Nintendo 3DS"
+            ],
+            correctAns: 2,
+
+        },
+        {
+            question: "What was Mario's original name?",
+            choices: [
+                "Jumpman",
+                "Big Red",
+                "Luigi",
+                "quattin' Sam"
+            ],
+            correctAns: 0,
+
         }];
 
 
@@ -68,7 +134,7 @@ $(document).ready(function () {
         var questionPrompt = trivia[number].question;
         $('.questions').text(questionPrompt);
 
-        for (var z = 0; z < howManyQuestions; z++) {
+        for (var z = 0; z < 4; z++) {
             var everyAnswer = trivia[number].choices[z];
             var correctORincorrect = trivia[number].correctAns;
             var divForQuestions = $('<div>');
@@ -93,6 +159,7 @@ $(document).ready(function () {
     var howManyQuestions = trivia.length;
     // console.log("Number of Questions? " + howManyQuestions);
     var unanswered = howManyQuestions;
+    console.log(howManyQuestions);
 
 
     function toClick() {
@@ -142,7 +209,7 @@ $(document).ready(function () {
         console.log('Finished');
         $('.questions').empty();
         $('.which-question').empty();
-        $('.count-down').empty();
+        $('.count').empty();
         timeIsUp();
         var divForTally = $('<div>');
         divForTally.addClass('final-score');
@@ -177,7 +244,7 @@ $(document).ready(function () {
     }
     function restartGame() {
         $('#restart').on('click', function () {
-            time = 10;
+            time = 120;
             win = 0;
             loss = 0;
             unanswered = howManyQuestions;
