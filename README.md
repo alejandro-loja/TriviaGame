@@ -14,3 +14,4 @@ This is how I created my project:
 - I used setTimeOut and clearInterval functions to help me with this game. 
 - I also used a lot of jQuery to manipulate the DOM.
 
+![Image of Nintendo Trivia](/rm_nintendo_trivia.png)
